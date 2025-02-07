@@ -17,6 +17,8 @@ beforeEach(function () {
 });
 
 test('perform a transfer', function () {
+    Notification::fake();
+
     $sender = User::factory()->create();
     $recipient = User::factory()->create();
 
@@ -47,6 +49,8 @@ test('perform a transfer', function () {
         'source_id' => $source->id,
         'target_id' => $target->id,
     ]);
+
+    Notification::assertNothingSent();
 });
 
 test('cannot perform a transfer with insufficient balance', function () {
