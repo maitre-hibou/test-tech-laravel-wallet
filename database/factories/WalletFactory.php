@@ -41,4 +41,19 @@ class WalletFactory extends Factory
                 'transactions'
             );
     }
+
+    public function poorGuy(): static
+    {
+        return $this
+            ->state(fn (array $attributes) => [
+                'balance' => 100,
+            ])
+            ->has(
+                WalletTransaction::factory()
+                    ->amount(100)
+                    ->credit()
+                    ->reason('Welcome !'),
+                'transactions'
+            );
+    }
 }

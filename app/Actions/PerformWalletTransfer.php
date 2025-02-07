@@ -7,7 +7,9 @@ namespace App\Actions;
 use App\Enums\WalletTransactionType;
 use App\Exceptions\InsufficientBalance;
 use App\Models\User;
+use App\Models\Wallet;
 use App\Models\WalletTransfer;
+use App\Notifications\User\WalletLowThreshold;
 use Illuminate\Support\Facades\DB;
 
 readonly class PerformWalletTransfer
@@ -41,6 +43,10 @@ readonly class PerformWalletTransfer
                 reason: $reason,
                 transfer: $transfer
             );
+
+            if ($sender->wallet->balance <= Wallet::LOW_AMOUNT_THRESHOLD) {
+                $sender->notify(new WalletLowThreshold($sender, $sender->wallet->balance));
+            }
 
             return $transfer;
         });

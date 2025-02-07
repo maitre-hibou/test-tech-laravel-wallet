@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Wallet extends Model
 {
+    public const LOW_AMOUNT_THRESHOLD = 10;
+
     use HasFactory;
 
     protected $fillable = [
