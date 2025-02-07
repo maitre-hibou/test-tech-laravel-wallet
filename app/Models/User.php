@@ -10,6 +10,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @property Wallet $wallet
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
